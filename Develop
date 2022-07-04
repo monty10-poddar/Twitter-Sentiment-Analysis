@@ -1,0 +1,29 @@
+import tweepy
+from tweepy import OAuthHandler
+from textblob import TextBlob
+
+
+print(tweepy.__file__)
+consumer_key = 'qxyHZ3oGs31CkaXlTmODl4c5I'
+consumer_key_secret = 'Zs0lUZSNpuBUPr5GMrxDrHMs4aW7J0ca9VjrAKXVav2VMfRrbX'
+
+access_token = '879203914662514688-1vPdBIwPvXsEufReG6AjxSjPkXX7knT'
+access_token_secret = 'gMsyYw5rPqaf7L9JtLc1k5rrrVKteFpfw231qwwx7wrZ7'
+
+auth = tweepy.OAuthHandler(consumer_key,consumer_key_secret)
+auth.set_access_token(access_token,access_token_secret)
+
+api=tweepy.API(auth)
+
+public_tweets= api.search('Narendra Modi')
+
+for tweet in public_tweets:
+    print(tweet.text)
+    analysis = TextBlob(tweet.text)
+    print(analysis.sentiment)
+    if analysis.sentiment[0]>0:
+        print('Positive')
+    elif analysis.sentiment[0]<0:
+        print('Negative')
+    else:
+        print('Neutral')
